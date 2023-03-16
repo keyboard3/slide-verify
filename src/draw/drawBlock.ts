@@ -29,7 +29,7 @@ shaodwCtx.canvas.width = L
 shaodwCtx.shadowColor = "black";
 shaodwCtx.shadowBlur = 6;
 shaodwCtx.shadowOffsetX = 2;
-shaodwCtx.shadowOffsetY = 5;
+shaodwCtx.shadowOffsetY = 2;
 drawPiece(shaodwCtx, 3, y)
 shaodwCtx.lineWidth = 1
 shaodwCtx.fillStyle = 'rgba(0, 0, 0, 1)'

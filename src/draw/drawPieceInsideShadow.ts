@@ -37,7 +37,7 @@ export function drawPieceInsideShadow(ctx: { drawImage: (arg0: HTMLCanvasElement
   var shadowContext = <CanvasRenderingContext2D>shadow.getContext("2d");
   shadow.width = svCanvasWidth;
   shadow.height = svCanvasHeight;
-  shadowContext.filter = "drop-shadow(0px 0px " +  "5px #000000 ) ";
+  shadowContext.filter = "drop-shadow(0px 0px " +  "1px #000000 ) ";
   
   // 默认 source-over 模式下叠加阴影，destination-out 模式...
   for (let i = 0; i < 4; i++) {
