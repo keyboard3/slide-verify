@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>external test</title>
-    <script src="../dist/slide-verify.js"></script>
+  <meta charset="UTF-8">
+  <title>external test</title>
+  <script src="../dist/slide-verify.js"></script>
 </head>
+
 <body>
-<div id="root"></div>
-<script>
-  let Slide = new SlideVerify({
-    elementId: "root",
-    onSuccess: () => {console.log("success")},
-    onFail: () => {console.log("fail")},
-    onRefresh: () => {console.log("refresh")},
-  })
-</script>
+  <div id="root"></div>
+  <script>
+    addEventListener("DOMContentLoaded", () => {
+      const width = window.innerWidth - 40;
+      const Slide = new SlideVerify({
+        elementId: "root",
+        width: width,
+        photo: [
+          "https://fastly.picsum.photos/id/1045/620/420.jpg?hmac=aeaGmeWWemTUupju7qo8llokI3fgSQ1icPEI5B7-xHA",
+          "https://fastly.picsum.photos/id/277/930/630.jpg?hmac=FZZnBuuCh1G2Iv1jXYYQdvAe3GIoLnpNHy3d_vSdstM",
+          // "https://fastly.picsum.photos/id/464/620/310.jpg?hmac=t43DXTVaXE34wKOsA6Ng-WfhNG5Cb54sLe1XhMVLj6I",
+          // "https://fastly.picsum.photos/id/583/620/310.jpg?hmac=QA0WxMUjBamwOnGZPet70tHOaLqeKTaqXDFtm9IMu2w"
+        ],
+        onSuccess: () => {
+          window.jsBridge.onSuccess();
+        },
+        onFail: () => {
+          window.jsBridge.onFail();
+        },
+        onRefresh: () => {
+          window.jsBridge.onRefresh();
+        },
+      });
+    });
+
+  </script>
 </body>
+
 </html>

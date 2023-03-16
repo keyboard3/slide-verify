@@ -9,10 +9,11 @@
 <a href="https://www.npmjs.com/package/slide-verify"><img src="https://img.shields.io/npm/dm/slide-verify?style=flat-square" alt="Downloads"/></a>
 
 ## 在线Demo
+- 添加功能，可以指定宽度自适应显示
 
 <p align="center">
   <a href="https://blog.duandiwang.com/slide-verify/">
-    <img width="310" src="https://blog.duandiwang.com/slide-verify/public/slide-verify-exmaple-01.png">
+    <img width="310" src="docs/public/slide-verify-exmaple-01.png">
   </a>
 </p>
 
