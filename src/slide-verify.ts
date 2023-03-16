@@ -2,7 +2,7 @@
 
 import "./libs/fontawesome";
 import * as styles from "./main.css";
-import * as config from "./config";
+import { config } from "./config";
 import {
   addClass,
   createImg,
@@ -14,7 +14,6 @@ import {
 import { drawBlock, drawPiece, drawPieceInsideShadow } from "./draw";
 
 const Verify = require("./Verify.pug");
-
 interface params {
   elementId: string;
   onSuccess(): void;
@@ -23,19 +22,7 @@ interface params {
   lang?: string;
   photo?: string | string[];
   source?: number[];
-}
-export function getConfig() {
-  return config;
-}
-export function setConifg(
-  newConfig: {
-    L: number;
-    r: number;
-    svCanvasWidth: number;
-    svCanvasHeight: number;
-  },
-) {
-  Object.assign(config, newConfig);
+  width?: number;
 }
 export default class SlideVerify {
   el: HTMLElement;
@@ -59,10 +46,16 @@ export default class SlideVerify {
   text: HTMLElement;
   trail: number[];
   loadingIcon: HTMLElement;
-
   constructor(
-    { elementId, onSuccess, onFail, onRefresh, lang, photo, source }: params,
+    { elementId, onSuccess, onFail, onRefresh, lang, photo, source, width }:
+      params,
   ) {
+    if (width) {
+      const height = config.svCanvasHeight * width /
+        config.svCanvasWidth;
+      config.svCanvasWidth = width;
+      config.svCanvasHeight = height;
+    }
     const { svCanvasWidth, svCanvasHeight } = config;
     let intlText: { slideTips?: string } = {};
     if (lang && lang === "en") {
@@ -113,15 +106,15 @@ export default class SlideVerify {
     this.initImg();
     this.bindEvents();
   }
-
   initImg() {
     this.loadingIcon.style.display = "block";
     const img = createImg(() => {
       const { svCanvasWidth, svCanvasHeight, L, r } = config;
+
       // 随机创建滑块挖取的位置
       this.x = getRandomNumberByRange(L + 70, svCanvasWidth - (L + 10));
       this.y = getRandomNumberByRange(10 + r * 2, svCanvasHeight - (L + 10));
-
+      console.log("---config", config, this.x, this.y);
       // draw canvas 及 被抠出的 piece 留下的坑
       if (this.source) {
         /* tsbug https://github.com/microsoft/TypeScript/issues/36133 */
@@ -202,7 +195,7 @@ export default class SlideVerify {
       }
       const moveX = eventX - originX;
       const moveY = eventY - originY;
-      const barWidth=150;
+      const barWidth = 150;
       if (moveX < 0 || moveX + barWidth >= svCanvasWidth) return false;
       (this.slider as HTMLElement).style.left = moveX + "px";
       // const blockLeft = (w - 40 - 20) / (w - 40) * moveX
@@ -210,7 +203,7 @@ export default class SlideVerify {
       (this.block as HTMLCanvasElement).style.left = blockLeft + "px";
 
       addClass(this.sliderContainer, styles.sliderContainer_active);
-      this.sliderMask.style.width = moveX + barWidth/2 + "px";
+      this.sliderMask.style.width = moveX + barWidth / 2 + "px";
       trail.push(moveY);
     };
 

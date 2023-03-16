@@ -32,7 +32,7 @@ export function checkMobile(): boolean{
   }
 }
 
-export {
+export const config = {
   l, // 滑块边长
   r, // 滑块半径
   svCanvasWidth, // canvas宽度
